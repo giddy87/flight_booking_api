@@ -21,3 +21,4 @@
 go.work
 flights.csv
 env.sh
+pgdata/*
