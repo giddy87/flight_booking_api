@@ -81,10 +81,6 @@ func GenerateFlightData() []string {
 	//Generate Economy Class Price
 	I := strconv.Itoa(int(float32(h) * 0.4))
 	data = append(data, I)
-
-	//fmt.Println(F)
-	//fmt.Println(b)
-	//fmt.Println(data)
 	return data
 
 }
@@ -99,7 +95,7 @@ func main() {
 	init_line := []string{"ID", "Name", "Tail_number", "Flight_number", "Departure_city", "Destination_city", "Seats", "Seats_left", "Business_class_price", "Economy_class_price"}
 	w := csv.NewWriter(f)
 	w.Write(init_line)
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 1200; i++ {
 		w.Write(GenerateFlightData())
 	}
 	w.Flush()

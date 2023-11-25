@@ -39,6 +39,19 @@ func GetAllBookings(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(result)
 }
+func GetBookingById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	BookId := vars["BookId"]
+	ID, err := strconv.ParseInt(BookId, 0, 0)
+	if err != nil {
+		fmt.Println("error while parsing")
+	}
+	bookData, _ := models.GetBookingById(ID)
+	result, _ := json.Marshal(bookData)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(result)
+}
 func GetPassengerById(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	passId := vars["PassId"]
@@ -121,29 +134,36 @@ func CreateBooking(w http.ResponseWriter, r *http.Request) {
 	fl := createBook.Flight_Number
 	Pass, _ := models.GetPassengerByUserId(num)
 	Flight, _ := models.GetFlightByFlightNumber(fl)
-	if fl != 0 && num != 0 {
-		createBook.Flight_Name = Flight.Name
-		createBook.Tail_number = Flight.Tail_number
-		createBook.Departure_city = Flight.Departure_city
-		createBook.Destination_city = Flight.Destination_city
-		createBook.Name = Pass.Name
-		createBook.Last_name = Pass.Last_name
-		createBook.Passport_number = Pass.Passport_number
-		createBook.Age = Pass.Age
-		createBook.Middle_name = Pass.Middle_name
+	if Flight.Seats_left == 0 {
+		w.Header().Set("Content-Type", "application/json")
+		result, _ := json.Marshal("Can't Book this flight; No seats available")
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write(result)
+	} else {
+		if fl != 0 && num != 0 {
+			createBook.Flight_Name = Flight.Name
+			createBook.Tail_number = Flight.Tail_number
+			createBook.Departure_city = Flight.Departure_city
+			createBook.Destination_city = Flight.Destination_city
+			createBook.Name = Pass.Name
+			createBook.Last_name = Pass.Last_name
+			createBook.Passport_number = Pass.Passport_number
+			createBook.Age = Pass.Age
+			createBook.Middle_name = Pass.Middle_name
+		}
+		if createBook.Ticket_tier == 1 {
+			createBook.Price = Flight.Business_class_price
+		} else if createBook.Ticket_tier == 0 {
+			createBook.Price = Flight.Economy_class_price
+		}
+		booking_id := Generate_RandId(7)
+		createBook.Booking_Id = booking_id
+		p := createBook.CreateBooking() //CreatePassenger() is the Passenger models Method
+		result, _ := json.Marshal(p)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(result)
 	}
-	if createBook.Ticket_tier == 1 {
-		createBook.Price = Flight.Business_class_price
-	} else if createBook.Ticket_tier == 0 {
-		createBook.Price = Flight.Economy_class_price
-	}
-	booking_id := Generate_RandId(7)
-	createBook.Booking_Id = booking_id
-	p := createBook.CreateBooking() //CreatePassenger() is the Passenger models Method
-	result, _ := json.Marshal(p)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(result)
 
 }
 func CreateFlight(w http.ResponseWriter, r *http.Request) {

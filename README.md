@@ -23,5 +23,7 @@ Step 2: Set env variables. for example,
 
 Application is available at <"your ip">:9000 | localhost:9000
 
-## ENDPOINTS
+## Api documentation
+
+ 1. **[/api/flight docs](api-docs/flights.md)**
 

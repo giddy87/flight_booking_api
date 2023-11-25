@@ -1,13 +1,7 @@
 version: '3.8'
-#networks:
-#  gonetwork: 
-#    name: gonetwork
-#    external: true    
 services:
   app:
     build: .
-#    networks:
-#      - gonetwork
     restart: always
     expose:
       - 9000
@@ -20,13 +14,13 @@ services:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
       DB_HOST: postgres
-      DB_PORT: ${DB_PORT)
+      DB_PORT: ${DB_PORT}
   postgres:
     image: postgres:14-alpine
     ports:
       - 5432:5432
     volumes:
-      - /pgdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/
       - ./flights.csv:/tmp/flights.csv
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
