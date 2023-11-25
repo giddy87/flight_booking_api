@@ -39,6 +39,7 @@
 |Method|Route  |
 |--|--|
 |  GET|/api/flight/{flight number}  |
+
 **4. Get Flight by Flight Id**
 |Method|Route  |
 |--|--|
