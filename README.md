@@ -26,4 +26,5 @@ Application is available at <"your ip">:9000 | localhost:9000
 ## Api documentation
 
  1. **[/api/flight docs](api-docs/flights.md)**
+ 2. **[/api/passenger docs](api-docs/passengers.md)**
 
