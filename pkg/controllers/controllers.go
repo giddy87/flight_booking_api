@@ -217,3 +217,34 @@ func PayBooking(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+func FindFlightByDate(w http.ResponseWriter, r *http.Request) {
+	d := &models.Date{}
+	utils.ParseBody(r, d)
+	//date, error := time.Parse("2006-01-02", FlightM.Flight_date)
+	//if error != nil {
+	//	log.Panic(error)
+	//}
+	date, fault := time.Parse("2006-01-02", d.Flight_date)
+	if fault != nil {
+		fmt.Println("Error while parsing date :", fault)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusNotFound)
+		fail, _ := json.Marshal("Incorrect date details")
+		w.Write(fail)
+	} else {
+		p, _ := models.FindFlightByDate(date) //CreatePassenger() is the Passenger models Method
+		result, err := json.Marshal(p)
+		if err != nil {
+			fmt.Println(err)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusNotFound)
+			fail, _ := json.Marshal("No flights available for selected date")
+			w.Write(fail)
+		} else {
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusOK)
+			w.Write(result)
+		}
+
+	}
+}

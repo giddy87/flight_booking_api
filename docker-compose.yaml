@@ -20,7 +20,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./pgdata:/var/lib/postgresql/
+      #- ./pgdata:/var/lib/postgresql/
       - ./flights.csv:/tmp/flights.csv
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -36,7 +36,7 @@ services:
       - 5435:5432
     volumes:
       - ./flights.csv:/tmp/flights.csv
-    command: psql -U ${DB_USER} -d ${DB_NAME} -h postgres  -c "\COPY Flights(ID,Name,Tail_number,Flight_number,Departure_city,Destination_city,Seats,Seats_left,Business_class_price,Economy_class_price)\ FROM '/tmp/flights.csv' \ DELIMITER ',' \ CSV HEADER;"
+    command: psql -U ${DB_USER} -d ${DB_NAME} -h postgres  -c "\COPY Flights(ID,Name,Tail_number,Flight_number,Departure_city,Destination_city,Seats,Seats_left,Business_class_price,Economy_class_price,Flight_date)\ FROM '/tmp/flights.csv' \ DELIMITER ',' \ CSV HEADER;"
     environment:
       PGPASSWORD: ${DB_PASSWORD}
       POSTGRES_PASSWORD: ${DB_PASSWORD}

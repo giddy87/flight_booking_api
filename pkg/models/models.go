@@ -1,12 +1,17 @@
 package models
 
 import (
+	"time"
+
 	"github.com/giddy87/flight_booking_api/pkg/config"
 	"github.com/jinzhu/gorm"
 )
 
 var db *gorm.DB
 
+type Date struct {
+	Flight_date string `json:"flight_date"`
+}
 type Flight struct {
 	gorm.Model
 	//Flight_ID        uint `gorm:"primaryKey"`
@@ -17,11 +22,11 @@ type Flight struct {
 	Departure_city   string `json:"departure_city"`
 	Destination_city string `json:"destination_city"`
 	//Date                 *time.Time  `json:"time"`
-	//Journey_time         *time.Timer `json:"journey_time"`
-	Seats                int64   `json:"seats"`
-	Seats_left           int64   `json:"seats_left"`
-	Business_class_price float64 `json:"business_class_price"`
-	Economy_class_price  float64 `json:"economy_class_price"`
+	Seats                int64      `json:"seats"`
+	Seats_left           int64      `json:"seats_left"`
+	Business_class_price float64    `json:"business_class_price"`
+	Economy_class_price  float64    `json:"economy_class_price"`
+	Flight_date          *time.Time `json:"flight_date"`
 }
 
 type Passenger struct {
@@ -145,4 +150,9 @@ func GetBookingById(ID int64) (*Passenger_booking, *gorm.DB) {
 	var Booking Passenger_booking
 	db := db.Where("Booking_Id=?", ID).First(&Booking)
 	return &Booking, db
+}
+func FindFlightByDate(date time.Time) ([]Flight, *gorm.DB) {
+	var getFlightbyDate []Flight
+	db := db.Order("Economy_class_price asc, Name").Where("Flight_date=?", date).Find(&getFlightbyDate)
+	return getFlightbyDate, db
 }

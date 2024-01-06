@@ -151,7 +151,10 @@ func GenerateFlightData() []string {
 	view := strings.Join(string_date, "")
 	J, error := time.Parse("2006-01-02", view)
 	if error == nil {
-		data = append(data, J.String())
+		form := J.Format("2006-01-02")
+		fmt.Println(form)
+		data = append(data, form)
+		//data = append(data, J.String())
 		//ch <- data
 		return data
 	} else {

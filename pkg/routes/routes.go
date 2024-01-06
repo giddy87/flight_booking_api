@@ -19,6 +19,8 @@ var RegisterAppRoutes = func(router *mux.Router) {
 	router.HandleFunc("/api/flight/{FlightNum}", controllers.GetFlightByFlightNumber).Methods("GET")
 	router.HandleFunc("/api/flight/find", controllers.FindFlight).Methods("POST")
 	router.HandleFunc("/api/flight", controllers.GetAllFlights).Methods("GET")
+	router.HandleFunc("/api/flight/date", controllers.FindFlightByDate).Methods("POST")
+
 	//router.HandleFunc("/passenger/{PassId}", controllers.DeletePassenger).Methods("DELETE")
 	//router.HandleFunc("/passenger/{PassId}", controllers.UpdatePassenger).Methods("PUT")
 
