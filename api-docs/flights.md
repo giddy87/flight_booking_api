@@ -21,6 +21,7 @@
 	    "seats_left": 37,
 	    "business_class_price": 22200,
 	    "economy_class_price": 145500  
+	    "flight_date":  "2024-11-26T01:00:00+01:00"
     }  
 
 **2.  Find Flights by Departure and Destination city**
@@ -39,7 +40,6 @@
 |Method|Route  |
 |--|--|
 |  GET|/api/flight/{flight number}  |
-
 **4. Get Flight by Flight Id**
 |Method|Route  |
 |--|--|
@@ -51,6 +51,13 @@
 |--|--|
 | GET | /api/flight |
 
-
+**6. Get Flights by Date**
     
+|Method|Route  |
+|--|--|
+|POST  |/api/flight/date  |
 
+       
+    {"flight_date": "2024-11-26" }
+
+ 
