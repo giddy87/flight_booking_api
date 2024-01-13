@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "f142d98b-cdf4-44c9-a885-d86d7652681d",
+		"name": "Flight_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25892415"
+	},
+	"item": [
+		{
+			"name": "Get All Passengers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/passenger",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"passenger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Passenger",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"first_name\": \"Jamiu\",\r\n    \"middle_name\": \"Jonathan\",\r\n    \"last_name\": \"Adeko\",\r\n    \"passport_number\": \"A60F6B2\",\r\n    \"age\": 45\r\n}"
+				},
+				"url": {
+					"raw": "localhost:9000/api/passenger",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"passenger"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_Booking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": 207431,\r\n    \"age\": 0,\r\n    \"booking_id\": 0,\r\n    \"flight_name\": \"\",\r\n    \"tail_number\": \"\",\r\n    \"Flight_Number\": 34321,\r\n    \"departure_city\": \"\",\r\n    \"destination_city\": \"\",\r\n    \"seat_number\": 0,\r\n    \"ticket_tier\": 1,\r\n    \"paid\": false,\r\n    \"price\": 0\r\n}"
+				},
+				"url": {
+					"raw": "localhost:9000/api/book",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Bookings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/api/book",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"book"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Booking by Id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "pay booking",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Name\": \"Gideon\",\r\n    \"Number\": \"12567309763\",\r\n    \"CVV\": 345\r\n}"
+				},
+				"url": {
+					"raw": "localhost:9000/api/book/pay/8305083",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"book",
+						"pay",
+						"8305083"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Flight",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"name\": \"Air Peace\",\r\n    \"tail_number\": \"47-HJU\",\r\n    \"flight_number\": 12430,\r\n    \"departure_city\": \"ABJ\",\r\n    \"destination_city\": \"KAN\",\r\n    \"seats\": 110,\r\n    \"seats_left\": 110,\r\n    \"business_class_price\": 22200,\r\n    \"economy_class_price\": 145500    \r\n}"
+				},
+				"url": {
+					"raw": "localhost:9000/api/flight",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all flights",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/api/flight",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Flights by Flight Number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/api/flight/12134",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"flight",
+						"12134"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Flights by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/api/flight/id/1",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"flight",
+						"id",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Flights by City",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {   \r\n    \"departure_city\": \"LAG\",\r\n    \"destination_city\": \"KAN\"\r\n }"
+				},
+				"url": {
+					"raw": "localhost:9000/api/flight/find",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"flight",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find Flight by Date",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {   \r\n    \"flight_date\": \"2024-11-12\" \r\n }\r\n"
+				},
+				"url": {
+					"raw": "localhost:9000/api/flight/date",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"flight",
+						"date"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Flight By Id",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
