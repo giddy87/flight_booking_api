@@ -10,4 +10,3 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o app ./cmd/main/main.go
 
 EXPOSE 9000
 CMD ["./app"]
-#ENTRYPOINT [ "/bin/sh", "entrypoint.sh" ]
