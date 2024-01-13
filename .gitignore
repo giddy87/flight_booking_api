@@ -23,3 +23,4 @@ flights.csv
 env.sh
 pgdata/*
 date.go
+cron.go
