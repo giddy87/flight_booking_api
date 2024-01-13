@@ -156,3 +156,8 @@ func FindFlightByDate(date time.Time) ([]Flight, *gorm.DB) {
 	db := db.Order("Economy_class_price asc, Name").Where("Flight_date=?", date).Find(&getFlightbyDate)
 	return getFlightbyDate, db
 }
+func DeleteFlight(Id int64) Flight {
+	var flight_tbd Flight
+	db.Where("ID = ?", Id).Delete(flight_tbd)
+	return flight_tbd
+}

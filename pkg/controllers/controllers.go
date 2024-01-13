@@ -177,7 +177,7 @@ func CreateFlight(w http.ResponseWriter, r *http.Request) {
 	w.Write(result)
 
 }
-func FindFlight(w http.ResponseWriter, r *http.Request) {
+func FindFlightByCity(w http.ResponseWriter, r *http.Request) {
 	FlightM := &models.Flight{}
 	utils.ParseBody(r, FlightM)
 	dep := FlightM.Departure_city
@@ -247,4 +247,19 @@ func FindFlightByDate(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}
+}
+
+func DeleteFlightById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	Delete_Id := vars["Delete_id"]
+	ID, err := strconv.ParseInt(Delete_Id, 0, 0)
+	if err != nil {
+		fmt.Println("error while parsing")
+	}
+	DelFlight := models.DeleteFlight(ID)
+	result, _ := json.Marshal(DelFlight)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	w.Write(result)
+
 }

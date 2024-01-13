@@ -61,4 +61,9 @@
        
     {"flight_date": "2024-11-26" }
 
- 
+
+**7. Delete Flights by Id**
+|Method|Route  |
+|--|--|
+|  DELETE|/api/flight/{flight id}  |
+
