@@ -79,6 +79,26 @@ func GetPassengerByUserId(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(result)
 }
+func DeletePassengerById(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	PassId := vars["PassId"]
+	ID, err := strconv.ParseInt(PassId, 0, 0)
+	if err != nil {
+		fmt.Println("error while parsing")
+	}
+	DelPassenger, err := models.DeletePassenger(ID)
+	if err != nil {
+		result, _ := json.Marshal(err)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write(result)
+	} else {
+		result, _ := json.Marshal(DelPassenger)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(result)
+	}
+}
 
 func GetAllFlights(w http.ResponseWriter, r *http.Request) {
 	AllFlights := models.GetAllFlights()
@@ -256,10 +276,17 @@ func DeleteFlightById(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println("error while parsing")
 	}
-	DelFlight := models.DeleteFlight(ID)
-	result, _ := json.Marshal(DelFlight)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	w.Write(result)
+	DelFlight, err := models.DeleteFlight(ID)
+	if err != nil {
+		result, _ := json.Marshal(err)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write(result)
+	} else {
+		result, _ := json.Marshal(DelFlight)
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		w.Write(result)
+	}
 
 }

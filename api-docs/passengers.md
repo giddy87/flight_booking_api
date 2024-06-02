@@ -22,12 +22,17 @@
 **3. Get Passenger by ID**
 |Method|Route  |
 |--|--|
-|  GET|/api/passenger/{id}  |
+|  GET|/api/passenger/{ID}  |
 
 **4. Get Passenger by User id**
 |Method|Route  |
 |--|--|
 | GET |  /api/passenger/user/{user id}|
+
+**5. Delete Passenger by ID**
+|Method|Route  |
+|--|--|
+|DELETE  | /api/passenger/{ID} |
 
 
 

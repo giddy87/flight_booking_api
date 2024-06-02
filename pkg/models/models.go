@@ -1,6 +1,7 @@
 package models
 
 import (
+	"errors"
 	"time"
 
 	"github.com/giddy87/flight_booking_api/pkg/config"
@@ -135,10 +136,19 @@ func GetFlightByFlightNumber(number int64) (*Flight, *gorm.DB) {
 	return &getFlight, db
 }
 
-func DeletePassenger(Id int64) Passenger {
+func DeletePassenger(Id int64) (*Passenger, error) {
 	var pass Passenger
-	db.Where("ID = ?", Id).Delete(pass)
-	return pass
+	result := db.Where("ID = ?", Id).Delete(pass)
+	if result.Error != nil {
+		CustErr := errors.New("Failed Request")
+		return nil, CustErr
+	} else if result.RowsAffected == 0 {
+		CustErr := errors.New("Record Does Not Exist")
+		return nil, CustErr
+	} else {
+		return &pass, nil
+	}
+
 }
 func FindFlight(dep string, dest string) ([]Flight, *gorm.DB) {
 	var getFlight []Flight
@@ -156,8 +166,16 @@ func FindFlightByDate(date time.Time) ([]Flight, *gorm.DB) {
 	db := db.Order("Economy_class_price asc, Name").Where("Flight_date=?", date).Find(&getFlightbyDate)
 	return getFlightbyDate, db
 }
-func DeleteFlight(Id int64) Flight {
+func DeleteFlight(Id int64) (*Flight, error) {
 	var flight_tbd Flight
-	db.Where("ID = ?", Id).Delete(flight_tbd)
-	return flight_tbd
+	result := db.Where("ID = ?", Id).Delete(flight_tbd)
+	if result.Error != nil {
+		CustErr := errors.New("Failed Request")
+		return nil, CustErr
+	} else if result.RowsAffected == 0 {
+		CustErr := errors.New("Record Does Not Exist")
+		return nil, CustErr
+	} else {
+		return &flight_tbd, nil
+	}
 }
