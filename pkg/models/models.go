@@ -120,10 +120,14 @@ func GetPassengerById(ID int64) (*Passenger, *gorm.DB) {
 	db := db.Where("ID=?", ID).Find(&getPassenger)
 	return &getPassenger, db
 }
-func GetPassengerByUserId(ID int64) (*Passenger, *gorm.DB) {
+func GetPassengerByUserId(ID int64) (*Passenger, *gorm.DB, error) {
 	var getPassenger Passenger
 	db := db.Where("User_id=?", ID).Find(&getPassenger)
-	return &getPassenger, db
+	if db.RowsAffected == 0 {
+		return nil, nil, errors.New("Passenger Not found")
+	} else {
+		return &getPassenger, db, nil
+	}
 }
 func GetFlightById(ID int64) (*Flight, *gorm.DB) {
 	var getFlight Flight
